@@ -10,7 +10,7 @@ mcp = FastMCP(
 
 
 @mcp.tool()
-async def get_weather(location: str) -> str:
+async def get_weather(location: str) -> str: #실제 호출되서 사용되는 Tool이며, 비즈니스 로직이 여기 들어감
     """
     Get current weather information for the specified location.
 
