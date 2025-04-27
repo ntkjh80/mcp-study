@@ -1,0 +1,9 @@
+{
+    "mcpServers": {
+        "weather": {
+            "command": "python",
+            "args": ["./mcp_tools/mcp_server_weather.py"],
+            "transport": "stdio"
+        }
+    }
+}
