@@ -16,7 +16,7 @@ class MCPAgent:
 
     def __init__(self, temperature: float, system_prompt: Optional[str], tools: list):
         self.chat_model = ChatOllama(
-            model="MFDoom/deepseek-r1-tool-calling:14b",
+            model="MFDoom/deepseek-r1-tool-calling:14b", # 모델을 여기서 정해줌
             temperature=temperature
         )
         self.agent = create_react_agent(

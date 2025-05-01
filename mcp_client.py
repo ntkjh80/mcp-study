@@ -8,11 +8,11 @@ class MCPClient:
         self.client = None
 
     async def initialize(self):
-        server_list = self._load_server_list()
+        server_list = self._load_server_list() # MCP 서버 리스트 가져오기
         try:
             self.client = MultiServerMCPClient(server_list)
             await self.client.__aenter__()
-            self.tools = self.client.get_tools()
+            self.tools = self.client.get_tools() # MCP 서버로부터 Tool 가져오기
         except Exception as e:
             raise RuntimeError(f"MCP client initialization failed: {str(e)}")
 
