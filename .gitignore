@@ -1,0 +1,8 @@
+# ignore .venv directory
+.venv/
+
+# ignore uv lock file
+uv.lock
+
+# ignore pycache
+__pycache__/
