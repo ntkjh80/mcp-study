@@ -22,3 +22,7 @@
     <br/> ollama pull MFDoom/deepseek-r1-tool-calling:14b
 5. 실행
     <br/> uv run main.py
+
+## 참고 사이트
+- https://github.com/godstale/ollama-mcp-agent/tree/main
+- https://hellollama.net/ollamamcp-agent-%eb%b9%84%ec%9a%a9-%ea%b1%b1%ec%a0%95%ec%97%86%eb%8a%94-ai-agent-1/
