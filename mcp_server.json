@@ -4,6 +4,11 @@
             "command": "python",
             "args": ["./mcp_tools/mcp_server_weather.py"],
             "transport": "stdio"
+        },
+        "youtube_agent_server": {
+            "transport": "sse",
+            "url": "http://127.0.0.1:8010/sse",
+            "debug": true
         }
     }
 }
