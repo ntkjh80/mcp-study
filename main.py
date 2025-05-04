@@ -147,8 +147,8 @@ def create_gradio_interface() -> gr.Blocks:
     print("[Gradio] Creating Gradio interface UI...")
     theme = gr.themes.Soft(primary_hue="blue", secondary_hue="sky")
 
-    with gr.Blocks(title="Ollama Chat with MCP Tools", theme=theme, analytics_enabled=False) as demo:
-        gr.Markdown("# 🤖 Ollama Chat with MCP Tools")
+    with gr.Blocks(title="Chat with MCP Tools", theme=theme, analytics_enabled=False) as demo:
+        gr.Markdown("# 🤖 Chat with MCP Tools")
         with gr.Row():
             with gr.Column(scale=3, min_width=250):
                 initialization_status = gr.Textbox("Agent Status: Loading UI...", label="Status", interactive=False, max_lines=1)
