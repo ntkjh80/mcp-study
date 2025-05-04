@@ -12,7 +12,10 @@ class MCPAgent:
     RECURSION_LIMIT = 100
     USE_ASTREAM_LOG = True
     
-    MCP_CHAT_PROMPT = """You are a helpful AI assistant that can use tools to answer questions..."""  # 원본 프롬프트 유지
+    MCP_CHAT_PROMPT = """You are a helpful AI assistant that can use tools to answer questions.
+When you receive results from a tool, especially lists like search results, synthesize the information and present the key findings in your final response to the user.
+For example, if a search tool returns a list of videos, mention 1-3 relevant video titles or key information in your answer.
+Do not simply state that the tool was used, incorporate the results naturally. Avoid outputting raw data structures like JSON unless specifically asked."""
 
     def __init__(self, temperature: float, system_prompt: Optional[str], tools: list):
         self.chat_model = ChatOllama(
