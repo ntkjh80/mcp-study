@@ -1,4 +1,5 @@
 import json
+import asyncio
 from typing import Dict, Any
 from langchain_mcp_adapters.client import MultiServerMCPClient
 
@@ -8,23 +9,17 @@ class MCPClient:
         self.client = None
 
     async def initialize(self):
-        server_list = self._load_server_list()
+        server_list = self._load_server_list() # MCP 서버 리스트 가져오기
         try:
-            # 수정 1: async with로 컨텍스트 관리
-            async with MultiServerMCPClient(server_list) as client:
-                self.client = client
-                self.tools = client.get_tools()
+            self.client = MultiServerMCPClient(server_list)
+            await self.client.__aenter__()
+            self.tools = self.client.get_tools() # MCP 서버로부터 Tool 가져오기
         except Exception as e:
-            # 수정 2: 에러 메시지 상세화
-            raise RuntimeError(f"MCP 초기화 실패: {str(e)}. 서버 설정 확인 필요")
+            raise RuntimeError(f"MCP client initialization failed: {str(e)}")
 
     def _load_server_list(self) -> Dict[str, Any]:
         try:
             with open("mcp_server.json", "r", encoding="utf-8") as f:
-                data = json.load(f)
-                # 수정 3: JSON 구조 검증
-                if "mcpServers" not in data:
-                    raise ValueError("mcp_server.json에 'mcpServers' 키 누락")
-                return data["mcpServers"]
+                return json.load(f)["mcpServers"]
         except FileNotFoundError:
             return {}

@@ -6,6 +6,7 @@ mcp = FastMCP(
     instructions="You are a weather assistant that can answer questions about the weather in a given location.",  # LLM이 이 툴이 뭔지 확인할때 사용하는 내용
     host="0.0.0.0",
     port=8005,
+    settings={"initialization_timeout": 10.0}
 )
 
 
