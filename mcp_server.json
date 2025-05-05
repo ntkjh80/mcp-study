@@ -9,6 +9,11 @@
             "transport": "sse",
             "url": "http://127.0.0.1:8010/sse",
             "debug": true
+        },
+        "time_service": {
+            "command": "python",
+            "args": ["./mcp_tools/mcp_server_time.py"],
+            "transport": "stdio"
         }
     }
 }
