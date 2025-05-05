@@ -430,16 +430,14 @@ if __name__ == "__main__":
     print("[YouTube Server] Starting YouTube MCP server using SSE transport...")
     print(f"[YouTube Server] Process ID: {os.getpid()}")
 
-    # === 수정된 부분: 정의된 변수 사용 ===
     print(f"[YouTube Server] Listening on http://{SERVER_HOST}:{SERVER_PORT}")
 
     if not YOUTUBE_API_KEY: print("[YouTube Server] Warning: API Key not set!")
 
     try:
-        # MCP 서버 실행 (uvicorn 기반으로 실행될 수 있음)
+        # MCP 서버 실행
         mcp.run(
             transport="sse",
-            # uvicorn_kwargs={"log_level": "info", "reload": True} # 개발 시 자동 리로드 옵션 추가 가능
         )
     except KeyboardInterrupt:
          print("\n[YouTube Server] Received KeyboardInterrupt. Shutting down...")
@@ -449,5 +447,4 @@ if __name__ == "__main__":
         traceback.print_exc() # 상세 스택 트레이스 출력
     finally:
         # 서버 종료 시 메시지 출력
-        # 참고: mcp.run() 이 정상 종료되거나 예외로 빠져나온 후에 실행됩니다.
         print("[YouTube Server] YouTube MCP server stopped.")
