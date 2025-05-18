@@ -19,6 +19,11 @@
             "command": "python",
             "args": ["./mcp_tools/mcp_server_rag.py"],
             "transport": "stdio"
+        },
+        "k8s_pilot": {
+            "command": "python",
+            "args": ["./mcp_tools/mcp_server_k8s.py"],
+            "transport": "stdio"
         }
     }
 }
