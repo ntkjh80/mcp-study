@@ -30,15 +30,21 @@ class MCPClient:
             return # 초기화 중단
 
         try:
-            # MultiServerMCPClient 인스턴스 생성 및 초기화
+            # MultiServerMCPClient 인스턴스 생성
             self.client = MultiServerMCPClient(server_list)
-            # 비동기 컨텍스트 매니저를 사용하여 클라이언트 시작
-            await self.client.__aenter__()
-            # 연결된 MCP 서버로부터 사용 가능한 도구 목록 가져오기
-            self.tools = self.client.get_tools() # MCP 서버로부터 Tool 가져오기
+
+            # <<<--- 수정된 부분 시작 --->>>
+            # self.client.__aenter__() 를 호출하는 대신, 바로 get_tools()를 사용합니다.
+            # MultiServerMCPClient는 내부적으로 서버 프로세스를 시작하고 관리합니다.
+            # get_tools() 호출 시 서버들이 준비될 때까지 기다리거나 연결을 시도합니다.
+            self.tools = await self.client.get_tools() # MCP 서버로부터 Tool 가져오기
+            # <<<--- 수정된 부분 끝 --->>>
+
         except Exception as e:
             # 초기화 중 오류 발생 시 Runtime 에러 발생
-            raise RuntimeError(f"MCP 클라이언트 초기화 실패: {str(e)}") # MCP client initialization failed: {str(e)}
+            # 오류 메시지에 원본 오류(e)를 포함하여 더 자세한 정보를 제공합니다.
+            original_error_type = type(e).__name__
+            raise RuntimeError(f"MCP 클라이언트 초기화 실패: {original_error_type} - {str(e)}")
 
     def _load_server_list(self) -> Dict[str, Any]:
         """
@@ -60,6 +66,15 @@ class MCPClient:
             print(f"경고: mcp_server.json 로드 중 오류 발생: {e}")
             return {}
 
+    # close 메서드는 MultiServerMCPClient에 명시적인 close가 필요할 경우 추가합니다.
+    # 현재 get_tools() 방식에서는 MultiServerMCPClient가 내부적으로 세션 관리를 하거나,
+    # 애플리케이션 종료 시 자동으로 정리될 수 있습니다.
+    # 만약 명시적인 자원 해제가 필요하다면 라이브러리 문서를 확인해야 합니다.
+    # async def close(self):
+    #     if self.client:
+    #         # MultiServerMCPClient에 close 메서드가 있다면 호출
+    #         # await self.client.close() # 예시
+    #         pass
 
 # 예시: 비동기 메인 함수 (실제 실행 로직은 아님)
 async def main():
@@ -74,8 +89,8 @@ async def main():
             print("로드된 MCP 도구가 없습니다.")
     except RuntimeError as e:
         print(f"오류: {e}")
-    finally:
-        await client.close()
+    # finally:
+    #     await client.close() # close 메서드가 있다면
 
 # 이 스크립트가 직접 실행될 때 main 함수 실행 (테스트용)
 if __name__ == "__main__":

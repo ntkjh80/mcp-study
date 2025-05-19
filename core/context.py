@@ -8,7 +8,7 @@ from functools import wraps  # 데코레이터 작성을 위해 사용합니다.
 from typing import Callable  # 타입 힌트를 위해 사용합니다.
 
 from kubernetes import config  # Kubernetes 설정 로드 및 컨텍스트 관리를 위해 사용합니다.
-from mcp_tools.mcp_server_k8s import mcp
+
 
 def get_current_context_name() -> str:
     """

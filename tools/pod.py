@@ -1,7 +1,8 @@
 from typing import Optional, Dict, List
 
 from core.context import use_current_context
-from mcp_tools.mcp_server_k8s import mcp
+from mcp_tools.k8s_mcp_instance import mcp_instance as mcp # 공유 인스턴스 사용
+print(f"[tools.namespace DEBUG] Importing namespace.py, using shared mcp instance with ID: {id(mcp)}")
 from kubernetes.client import CoreV1Api
 from core.kubeconfig import get_api_clients
 

@@ -6,7 +6,9 @@ import os  # 파일 경로 조작을 위해 사용합니다.
 import yaml  # YAML 파일 파싱을 위해 사용합니다.
 
 from models.context import ContextInfo  # 컨텍스트 정보 모델을 가져옵니다.
-from mcp_tools.mcp_server_k8s import mcp  # MCP 서버 인스턴스를 가져옵니다.
+from mcp_tools.k8s_mcp_instance import mcp_instance as mcp # <<<--- 이 부분을 추가하거나 수정합니다.
+print(f"[resources.contexts DEBUG] Importing contexts.py, using shared mcp instance with ID: {id(mcp)}")
+
 # kubernetes.config는 직접 사용하지 않고, kubeconfig 파일 경로를 직접 사용합니다.
 # 만약 kubernetes 라이브러리의 표준 방식을 사용하려면 config.list_kube_config_contexts() 등을 고려할 수 있습니다.
 
