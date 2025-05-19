@@ -1,5 +1,25 @@
 {
     "mcpServers": {
+        "weather": {
+            "command": "python",
+            "args": ["./mcp_tools/mcp_server_weather.py"],
+            "transport": "stdio"
+        },
+        "youtube_agent_server": {
+            "transport": "sse",
+            "url": "http://127.0.0.1:8010/sse",
+            "debug": true
+        },
+        "time_service": {
+            "command": "python",
+            "args": ["./mcp_tools/mcp_server_time.py"],
+            "transport": "stdio"
+        },
+        "retriever_service": {
+            "command": "python",
+            "args": ["./mcp_tools/mcp_server_rag.py"],
+            "transport": "stdio"
+        },
         "k8s_pilot": {
             "command": "python",
             "args": ["./mcp_tools/mcp_server_k8s.py"],
